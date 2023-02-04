@@ -1,23 +1,32 @@
-@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+@import 'https://fonts.googleapis.com/css2?family=Roboto&display=swap';
 * {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-*, :before, :after {
+*,
+:before,
+:after {
   box-sizing: border-box;
 }
 
-:focus, :active, a:focus, a:active {
+:focus,
+:active,
+a:focus,
+a:active {
   outline: none;
 }
 
-nav, footer, header, aside {
+nav,
+footer,
+header,
+aside {
   display: block;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   -ms-text-size-adjust: 100%;
@@ -27,7 +36,9 @@ html, body {
   line-height: 1;
 }
 
-input, button, textarea {
+input,
+button,
+textarea {
   font-family: inherit;
 }
 
@@ -44,11 +55,15 @@ button::-moz-focus-inner {
   padding: 0;
 }
 
-a, a:visited, a:hover {
+a,
+a:visited,
+a:hover {
   text-decoration: none;
 }
 
-ul, ol, li {
+ul,
+ol,
+li {
   list-style: none;
 }
 
@@ -56,12 +71,17 @@ img {
   vertical-align: top;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: inherit;
   font-weight: inherit;
 }
 
-body[data-theme="light"] {
+body[data-theme='light'] {
   --color-1: #fff;
   --color-2: #ebebeb;
   --color-3: #d2d2d2;
@@ -70,7 +90,7 @@ body[data-theme="light"] {
   --color-6: #fff;
 }
 
-body[data-theme="dark"] {
+body[data-theme='dark'] {
   --color-1: #1e1e1e;
   --color-2: #282828;
   --color-3: #3c3c3c;
@@ -124,7 +144,8 @@ body {
   }
 }
 
-button, input {
+button,
+input {
   background-color: var(--color-1);
   border: 1px solid var(--color-5);
   height: 32px;
@@ -136,7 +157,8 @@ button, input {
   text-decoration: none;
 }
 
-button:disabled, input:disabled {
+button:disabled,
+input:disabled {
   color: var(--color-3);
   border: 1px solid var(--color-3);
   cursor: default;
@@ -194,9 +216,10 @@ main {
   width: -moz-fit-content;
   width: fit-content;
   z-index: 1;
-  opacity: .5;
+  opacity: 0.5;
   border-radius: 10px;
   margin: 0 auto;
+  margin-top: 10px;
   padding: 3px 15px;
   font-size: 14px;
   font-style: italic;
@@ -229,7 +252,7 @@ main {
 
 .message__user {
   color: var(--color-4);
-  opacity: .7;
+  opacity: 0.7;
   font-size: 13px;
   line-height: 17px;
 }
@@ -250,7 +273,7 @@ main {
 .message__time {
   color: var(--color-4);
   float: right;
-  opacity: .5;
+  opacity: 0.5;
   margin-left: 10px;
   font-size: 11px;
   font-style: italic;
@@ -271,7 +294,7 @@ main {
   height: 40px;
   border: 2px solid var(--color-3);
   background-color: var(--color-1);
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
   border-radius: 20px;
   display: none;
@@ -287,11 +310,11 @@ main {
 }
 
 .scroll:after {
-  content: "›";
+  content: '›';
   width: 100%;
   height: 100%;
   color: var(--color-4);
-  opacity: .8;
+  opacity: 0.8;
   justify-content: center;
   align-items: center;
   margin-top: 1px;
@@ -398,14 +421,16 @@ footer {
   color: var(--color-3);
 }
 
-.spinner-messages, .spinner {
+.spinner-messages,
+.spinner {
   width: 50px;
   height: 50px;
   margin: 0 auto;
   display: none;
 }
 
-.spinner-messages.active, .spinner.active {
+.spinner-messages.active,
+.spinner.active {
   display: block;
 }
 
@@ -429,7 +454,7 @@ footer {
   cursor: pointer;
   background-color: #d2d2d2;
   border-radius: 50px;
-  transition: background-color .5s;
+  transition: background-color 0.5s;
   display: block;
   position: absolute;
   top: 0;
@@ -437,7 +462,7 @@ footer {
 }
 
 .theme-switcher label:after {
-  content: "🔆";
+  content: '🔆';
   text-align: center;
   width: 20px;
   height: 20px;
@@ -445,7 +470,7 @@ footer {
   border-radius: 50%;
   font-size: 10px;
   line-height: 20px;
-  transition: all .5s;
+  transition: all 0.5s;
   position: absolute;
   top: 50%;
   left: 5px;
@@ -457,12 +482,13 @@ footer {
 }
 
 .theme-switcher input:checked + label:after {
-  content: "🌙";
+  content: '🌙';
   background-color: var(--color-2);
   left: calc(100% - 25px);
 }
 
-.error-container, .note-container {
+.error-container,
+.note-container {
   height: 80px;
   color: #fff;
   text-align: center;
@@ -509,7 +535,7 @@ footer {
 }
 
 .connection:after {
-  content: "offline";
+  content: 'offline';
   text-align: center;
   height: 20px;
   width: 50px;
@@ -517,7 +543,7 @@ footer {
   border-radius: 50px;
   font-size: 12px;
   line-height: 20px;
-  transition: all .5s;
+  transition: all 0.5s;
   position: absolute;
   top: 50%;
   left: 5px;
@@ -529,7 +555,7 @@ footer {
 }
 
 .connection.connect:after {
-  content: "online";
+  content: 'online';
 }
 
 .connection:hover {
