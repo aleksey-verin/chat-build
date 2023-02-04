@@ -572,15 +572,13 @@ var _handlers = require("./handlers");
 var _socket = require("./socket");
 var _socketDefault = parcelHelpers.interopDefault(_socket);
 // ==================  ВХОД  ==================
-// Cookies.remove('chat-name')
-// Cookies.remove('chat-token')
-// Cookies.remove('chat-email')
-// Cookies.remove('currentInputValue')
+(0, _jsCookieDefault.default).remove("chat-name");
+(0, _jsCookieDefault.default).remove("chat-token");
+(0, _jsCookieDefault.default).remove("chat-email");
+(0, _jsCookieDefault.default).remove("currentInputValue");
 if (!(0, _jsCookieDefault.default).get("chat-token")) (0, _popup.createPopup)((0, _uiElements.TYPE_MODAL_WINDOW).LOGIN.NAME);
-else {
-    downloadMessagesFromTheServer();
-    (0, _socketDefault.default)();
-}
+else downloadMessagesFromTheServer();
+(0, _socketDefault.default)();
 // ==================  Темы: светлая / темная  ==================
 const theme = JSON.parse(localStorage.getItem("theme"));
 if (theme) (0, _uiElements.UI_ELEMENTS).BODY.setAttribute("data-theme", theme);
@@ -598,7 +596,7 @@ function renderMessages(type) {
     if (type) {
         if (finish === allMessages.length) {
             const allMessagesLoaded = document.createElement("div");
-            allMessagesLoaded.classList.add("date");
+            allMessagesLoaded.classList.add("note-messages");
             allMessagesLoaded.textContent = "Вся история загружена";
             (0, _uiElements.UI_ELEMENTS).MESSAGE_LIST.append(allMessagesLoaded);
             (0, _uiElements.UI_ELEMENTS).MESSAGE_LIST.removeEventListener("scroll", scrollMessagesList);
@@ -679,9 +677,9 @@ function submitOnEnter(event) {
         expires: 2
     });
 });
-if ((0, _jsCookieDefault.default).get("currentInputValue")) (0, _uiElements.UI_ELEMENTS).FORM_TEXTAREA.value = (0, _jsCookieDefault.default).get("chat-currentInputValue");
+if ((0, _jsCookieDefault.default).get("chat-currentInputValue")) (0, _uiElements.UI_ELEMENTS).FORM_TEXTAREA.value = (0, _jsCookieDefault.default).get("chat-currentInputValue");
 
-},{"js-cookie":"c8bBu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","date-fns":"9yHCA","./ui-elements":"ghRIp","./handlers":"hCzvv","./popup":"jpJ9p","./socket":"duoz3"}],"c8bBu":[function(require,module,exports) {
+},{"js-cookie":"c8bBu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","date-fns":"9yHCA","./ui-elements":"ghRIp","./popup":"jpJ9p","./handlers":"hCzvv","./socket":"duoz3"}],"c8bBu":[function(require,module,exports) {
 (function(global, factory) {
     module.exports = factory();
 })(this, function() {
@@ -3895,75 +3893,7 @@ const TYPE_MODAL_WINDOW = {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hCzvv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// ==================  ОПОВЕЩЕНИЯ / ОШИБКИ ==================
-parcelHelpers.export(exports, "showNotification", ()=>showNotification);
-parcelHelpers.export(exports, "changeTheme", ()=>changeTheme);
-// ==================  ПОКАЗ ЗАГРУЗКИ и ОТКЛЮЧЕНИЕ ФОРМЫ   ==================
-parcelHelpers.export(exports, "createLoadingSpinner", ()=>createLoadingSpinner);
-parcelHelpers.export(exports, "showLoadingSpinnerForMessages", ()=>showLoadingSpinnerForMessages);
-parcelHelpers.export(exports, "showSpinnerAndDisableForm", ()=>showSpinnerAndDisableForm);
-var _uiElements = require("./ui-elements");
-function showNotification(type, noteMessage, name = "") {
-    const noteBlock = document.createElement("div");
-    noteBlock.textContent = noteMessage + name;
-    if (type === (0, _uiElements.ERROR).TYPE) noteBlock.classList.add("error-container");
-    if (type === (0, _uiElements.NOTE).TYPE) noteBlock.classList.add("note-container");
-    noteBlock.addEventListener("click", ()=>noteBlock.remove());
-    (0, _uiElements.UI_ELEMENTS).BODY.append(noteBlock);
-    setTimeout(()=>{
-        noteBlock.classList.add("active");
-        setTimeout(()=>{
-            noteBlock.classList.remove("active");
-            setTimeout(()=>{
-                noteBlock.remove();
-            }, 1000);
-        }, 5000);
-    }, 100);
-}
-function changeTheme(event) {
-    if (event.target.checked) {
-        (0, _uiElements.UI_ELEMENTS).BODY.setAttribute("data-theme", "dark");
-        localStorage.setItem("theme", JSON.stringify("dark"));
-    } else {
-        (0, _uiElements.UI_ELEMENTS).BODY.setAttribute("data-theme", "light");
-        localStorage.setItem("theme", JSON.stringify("light"));
-    }
-}
-function createLoadingSpinner() {
-    const spinner = document.createElement("img");
-    spinner.classList.add("spinner") //
-    ;
-    spinner.src = "spinner.267ff859.svg" //
-    ;
-    spinner.alt = "spinner";
-    return spinner;
-}
-function showLoadingSpinnerForMessages(active) {
-    const spinner = document.querySelector(".spinner-messages");
-    if (active) spinner.classList.add("active");
-    else spinner.classList.remove("active");
-}
-function showSpinnerAndDisableForm(active) {
-    const spinner = document.querySelector(".spinner");
-    const linkToCode = document.querySelector(".link-code");
-    const input = document.querySelector(".content-input");
-    const button = document.querySelector(".content-btn");
-    if (input) input.disabled = active;
-    if (button) button.disabled = active;
-    if (spinner) {
-        if (active) spinner.classList.add("active");
-        else spinner.classList.remove("active");
-    }
-    if (linkToCode) {
-        if (active) linkToCode.classList.add("disabled");
-        else linkToCode.classList.remove("disabled");
-    }
-}
-
-},{"./ui-elements":"ghRIp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jpJ9p":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jpJ9p":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // ==================  Закрываем модальное окно  ==================
@@ -3985,7 +3915,6 @@ let userName = (0, _jsCookieDefault.default).get("chat-name") || "";
 });
 function removePopup() {
     document.querySelector(".popup").remove();
-    console.log((0, _jsCookieDefault.default).get());
 }
 function closePopupByClickOnEmptySpace(event) {
     if (event.target.classList.contains("popup")) removePopup();
@@ -4073,7 +4002,6 @@ function createPopup(type) {
     popupContainer.append(popupTitle, popupContent);
     popup.append(popupContainer);
     (0, _uiElements.UI_ELEMENTS).BODY.append(popup);
-    console.log((0, _jsCookieDefault.default).get());
 }
 // ==================  Функции на кнопках модального окна ==================
 function userIndentification(event) {
@@ -4099,7 +4027,7 @@ function userIndentification(event) {
             return answer.json();
         }
         return (0, _handlers.showNotification)((0, _uiElements.ERROR).TYPE, (0, _uiElements.ERROR).EMAIL_ERROR);
-    }).then((result)=>console.log(result)).catch(()=>{
+    }).catch(()=>{
         (0, _handlers.showNotification)((0, _uiElements.ERROR).TYPE, (0, _uiElements.ERROR).SERVER_ERROR);
     }).finally(()=>{
         (0, _handlers.showSpinnerAndDisableForm)(false);
@@ -4140,11 +4068,9 @@ function userAuthentification(event) {
         }
     }).catch((error)=>{
         if (error.message === "Failed to fetch") (0, _handlers.showNotification)((0, _uiElements.ERROR).TYPE, (0, _uiElements.ERROR).SERVER_ERROR);
-        else (0, _handlers.showNotification)((0, _uiElements.ERROR).TYPE, (0, _uiElements.ERROR).OTHER_ERROR);
     }).finally(()=>{
         (0, _handlers.showSpinnerAndDisableForm)(false);
     });
-    console.log((0, _jsCookieDefault.default).get());
 }
 function changeUserName(event) {
     event.preventDefault();
@@ -4170,7 +4096,6 @@ function changeUserName(event) {
         (0, _jsCookieDefault.default).set("chat-name", name, {
             expires: 2
         });
-        console.log((0, _jsCookieDefault.default).get());
     }).catch(()=>{
         (0, _handlers.showNotification)((0, _uiElements.ERROR).TYPE, (0, _uiElements.ERROR).SERVER_ERROR);
     }).finally(()=>{
@@ -4179,7 +4104,75 @@ function changeUserName(event) {
     });
 }
 
-},{"js-cookie":"c8bBu","./ui-elements":"ghRIp","./handlers":"hCzvv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./socket":"duoz3","./index":"bB7Pu"}],"duoz3":[function(require,module,exports) {
+},{"js-cookie":"c8bBu","./ui-elements":"ghRIp","./handlers":"hCzvv","./socket":"duoz3","./index":"bB7Pu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hCzvv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// ==================  ОПОВЕЩЕНИЯ / ОШИБКИ ==================
+parcelHelpers.export(exports, "showNotification", ()=>showNotification);
+parcelHelpers.export(exports, "changeTheme", ()=>changeTheme);
+// ==================  ПОКАЗ ЗАГРУЗКИ и ОТКЛЮЧЕНИЕ ФОРМЫ   ==================
+parcelHelpers.export(exports, "createLoadingSpinner", ()=>createLoadingSpinner);
+parcelHelpers.export(exports, "showLoadingSpinnerForMessages", ()=>showLoadingSpinnerForMessages);
+parcelHelpers.export(exports, "showSpinnerAndDisableForm", ()=>showSpinnerAndDisableForm);
+var _uiElements = require("./ui-elements");
+function showNotification(type, noteMessage, name = "") {
+    const noteBlock = document.createElement("div");
+    noteBlock.textContent = noteMessage + name;
+    if (type === (0, _uiElements.ERROR).TYPE) noteBlock.classList.add("error-container");
+    if (type === (0, _uiElements.NOTE).TYPE) noteBlock.classList.add("note-container");
+    noteBlock.addEventListener("click", ()=>noteBlock.remove());
+    (0, _uiElements.UI_ELEMENTS).BODY.append(noteBlock);
+    setTimeout(()=>{
+        noteBlock.classList.add("active");
+        setTimeout(()=>{
+            noteBlock.classList.remove("active");
+            setTimeout(()=>{
+                noteBlock.remove();
+            }, 1000);
+        }, 5000);
+    }, 100);
+}
+function changeTheme(event) {
+    if (event.target.checked) {
+        (0, _uiElements.UI_ELEMENTS).BODY.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", JSON.stringify("dark"));
+    } else {
+        (0, _uiElements.UI_ELEMENTS).BODY.setAttribute("data-theme", "light");
+        localStorage.setItem("theme", JSON.stringify("light"));
+    }
+}
+function createLoadingSpinner() {
+    const spinner = document.createElement("img");
+    spinner.classList.add("spinner") //
+    ;
+    spinner.src = "spinner.267ff859.svg" //
+    ;
+    spinner.alt = "spinner";
+    return spinner;
+}
+function showLoadingSpinnerForMessages(active) {
+    const spinner = document.querySelector(".spinner-messages");
+    if (active) spinner.classList.add("active");
+    else spinner.classList.remove("active");
+}
+function showSpinnerAndDisableForm(active) {
+    const spinner = document.querySelector(".spinner");
+    const linkToCode = document.querySelector(".link-code");
+    const input = document.querySelector(".content-input");
+    const button = document.querySelector(".content-btn");
+    if (input) input.disabled = active;
+    if (button) button.disabled = active;
+    if (spinner) {
+        if (active) spinner.classList.add("active");
+        else spinner.classList.remove("active");
+    }
+    if (linkToCode) {
+        if (active) linkToCode.classList.add("disabled");
+        else linkToCode.classList.remove("disabled");
+    }
+}
+
+},{"./ui-elements":"ghRIp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"duoz3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsCookie = require("js-cookie");
@@ -4193,7 +4186,6 @@ function connectionLight(action) {
 function socketConnection() {
     const socket = new WebSocket(`wss://edu.strada.one/websockets?${(0, _jsCookieDefault.default).get("chat-token")}`);
     socket.onopen = ()=>{
-        console.log("Соединение установлено");
         connectionLight(true);
     };
     socket.onmessage = (event)=>{
@@ -4201,8 +4193,7 @@ function socketConnection() {
         (0, _index.addMessage)(text, email, name, createdAt);
         if (email === (0, _jsCookieDefault.default).get("chat-email") || (0, _uiElements.UI_ELEMENTS).MESSAGE_LIST.scrollTop > -300) (0, _index.scrollToLastUserMessage)();
     };
-    socket.onclose = (event)=>{
-        console.log("Соединение закрыто", event);
+    socket.onclose = ()=>{
         if ((0, _uiElements.UI_ELEMENTS).CONNECTION_LIGHT.classList.contains("connect")) {
             connectionLight(false);
             window.location.reload();
@@ -4232,6 +4223,6 @@ function socketConnection() {
 }
 exports.default = socketConnection;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","js-cookie":"c8bBu","./index":"bB7Pu","./ui-elements":"ghRIp"}]},["8BXtR","bB7Pu"], "bB7Pu", "parcelRequire2c1f")
+},{"js-cookie":"c8bBu","./index":"bB7Pu","./ui-elements":"ghRIp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["8BXtR","bB7Pu"], "bB7Pu", "parcelRequire2c1f")
 
 //# sourceMappingURL=index.3d214d75.js.map
